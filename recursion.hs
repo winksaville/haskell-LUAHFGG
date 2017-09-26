@@ -25,7 +25,9 @@ maximum' (x:xs)
                 maxTail' = (maximum' xs) `db` ("x:xs x:=" ++ show x ++ " where maxTail = maximum' xs:=" ++ show xs)
                 maxTail = maxTail' `db` ("x:xs^x:=" ++ show x ++ " where maxTail:=" ++ show maxTail')
 
-replicate' :: (Show a, Show n, Num n, Ord n) => n -> a -> [a]
+-- Show a, Show n is needed for dbg :(
+-- replicate' :: (Show a, Show n, Num n, Ord n) => n -> a -> [a]
+replicate' :: (Num n, Ord n) => n -> a -> [a]
 replicate' n x
         | n <= 0 = [] --`db` ("n:=" ++ show n ++ " <= 0 x:=" ++ show x)
         | otherwise = x:replicate' (n-1) x --`db` ("n:=" ++ show (n-1) ++ " x:=" ++ show x)
