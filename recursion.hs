@@ -20,7 +20,7 @@ maximum' [] = error "List is empty, no maximum!"
 maximum' [x] = x `db` ("one element: " ++ show x)
 maximum' (x:xs)
          | x > maxTail = x `db` ("x:xs x:=" ++ show x ++ " > maxTail:=" ++ show maxTail)
-         | otherwise = maxTail `db` ("x:xs otherwise maxTail:=" ++ show maxTail)
+         | otherwise = maxTail `db` ("x:xs x:=" ++ show x ++ " otherwise maxTail:=" ++ show maxTail)
          where
-                maxTail' = (maximum' xs) `db` ("x:xs where maxTail = maximum' xs:=" ++ show xs)
-                maxTail = maxTail' `db` ("x:xs^ where maxTail:=" ++ show maxTail')
+                maxTail' = (maximum' xs) `db` ("x:xs x:=" ++ show x ++ " where maxTail = maximum' xs:=" ++ show xs)
+                maxTail = maxTail' `db` ("x:xs^x:=" ++ show x ++ " where maxTail:=" ++ show maxTail')
