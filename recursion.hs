@@ -31,3 +31,17 @@ replicate' :: (Num n, Ord n) => n -> a -> [a]
 replicate' n x
         | n <= 0 = [] --`db` ("n:=" ++ show n ++ " <= 0 x:=" ++ show x)
         | otherwise = x:replicate' (n-1) x --`db` ("n:=" ++ show (n-1) ++ " x:=" ++ show x)
+
+-- Zip using patterns
+zip' :: (Show a, Show b) => [a] -> [b] -> [(a,b)]
+zip' [] _ = [] `db` "first list is empty, return []"
+zip' _ [] = [] `db` "second list is empty, return []"
+zip' (a:as) (b:bs) = (a,b):zip' as bs `db` ("two lists a:=" ++ show a ++ " as:=" ++ show as ++ " b:=" ++ show b ++ " bs:=" ++ show bs)
+
+-- Zip using guards instead of pattern's
+zip'' :: (Show a, Show b) => [a] -> [b] -> [(a,b)]
+zip'' l1 l2
+ | length(l1) == 0 || length(l2) == 0 = [] `db` "A list is empty, return []"
+ | otherwise = let (x:xs) = l1
+                   (y:ys) = l2
+               in  (x,y):zip'' xs ys `db` ("two lists x:=" ++ show x ++ " xs:=" ++ show xs ++ " y:=" ++ show y ++ " ys:=" ++ show ys)
