@@ -45,3 +45,20 @@ zip'' l1 l2
  | otherwise = let (x:xs) = l1
                    (y:ys) = l2
                in  (x,y):zip'' xs ys `db` ("two lists x:=" ++ show x ++ " xs:=" ++ show xs ++ " y:=" ++ show y ++ " ys:=" ++ show ys)
+
+-- Quick sort with dbg
+quicksort' :: (Show a, Ord a) => [a] -> [a]
+quicksort' [] = [] `db` "empty list"
+quicksort' (x:xs) =
+        let small' = [a | a <- xs `db` ("xs:=" ++ show xs), a <= x `db` ("a:=" ++ show a ++ " x:=" ++ show x)]
+            small = quicksort' small' `db` ("small':=" ++ show small')
+            big' = [a | a <- xs, a > x `db` ("big a:=" ++ show a ++ " x:=" ++ show x)]
+            big = quicksort' big' `db` ("big x:=" ++ show x ++ " xs:=" ++ show xs ++ " big':=" ++ show big')
+        in  small ++ [x] ++ big `db` ("merge small:=" ++ show small ++ " x:=" ++ show x ++ " big:=" ++ show big)
+
+quicksort :: (Ord a) => [a] -> [a]
+quicksort [] = []
+quicksort (x:xs) =
+        let small = quicksort [a | a <- xs, a <= x]
+            big = quicksort [a | a <- xs, a > x]
+        in  small ++ [x] ++ big
