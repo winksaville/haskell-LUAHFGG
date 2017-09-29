@@ -1,10 +1,25 @@
+module Shapes
+( Point(..)
+, Shape(Circle, Rectangle) -- same as Shape(..)
+, surface
+, nudge
+, baseCircle
+, baseRect
+) where
+
 import Dbg (db)
 
 lvl :: Int
 lvl = 4
 
-data Point = Point Float Float deriving (Show)
-data Shape = Circle Point Float | Rectangle Point Point deriving (Show)
+data Point = Point { x :: Float , y :: Float } deriving (Show)
+data Shape = Circle { loc :: Point, radius :: Float } | Rectangle { ll :: Point, ur :: Point } deriving (Show)
+
+-- How would you combine Circle and Rectangle into a Shape, this doesn't work
+-- we get "Multipel declaractions of 'Circle' and 'Rectangle'
+--data Circle = Circle { loc :: Point, radius :: Float } deriving (show)
+--data Rectangle = Rectangle { ll :: Point, ur :: Point } deriving (Show)
+--data Shape = Circle | Rectangle
 
 surface :: Shape -> Float
 surface (Circle _ radius) =
