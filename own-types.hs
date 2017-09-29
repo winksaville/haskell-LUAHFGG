@@ -15,3 +15,7 @@ surface (Rectangle (Point x1 y1) (Point x2 y2)) =
             height = (abs $ y2 - y1)
             area = width * height
         in  area `db` lvl $ "width:=" ++ show width ++ " height:=" ++ show height ++ " area:=" ++ show area
+
+nudge :: Shape -> Float -> Float -> Shape
+nudge (Circle (Point x y) radius) dx dy = Circle (Point (x+dx) (y+dy)) radius
+nudge (Rectangle (Point x1 y1) (Point x2 y2)) dx dy = Rectangle (Point (x1+dx) (y1+dy)) (Point (x2+dx) (y2+dy))
