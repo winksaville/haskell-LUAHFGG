@@ -6,7 +6,11 @@ lvl = 4
 f :: (Show a) => a -> a
 f x = x `db` lvl $ "f x:=" ++ show x
 
-data Tree a = EmptyTree | Node a (Tree a) (Tree a) deriving (Read, Eq)
+data Tree a = EmptyTree | Node a (Tree a) (Tree a) deriving (Show, Read, Eq)
+
+instance Functor Tree where
+        fmap f EmptyTree = EmptyTree
+        fmap f (Node x leftsub rightsub) = Node (f x) (fmap f leftsub) (fmap f rightsub)
 
 singleton :: a -> Tree a
 singleton x = Node x EmptyTree EmptyTree --`db` lvl $ "singleton x:=" ++ show x
