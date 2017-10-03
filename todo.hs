@@ -17,7 +17,7 @@ view :: [String] -> IO ()
 view args = putStrLn $ "view args:=" ++ show args
 
 add :: [String] -> IO ()
-add args = putStrLn $ "add args:=" ++ show args
+add [fileName, todoItem] = appendFile fileName (todoItem ++ "\n") `db` lvl $ "add fileName:=" ++ show fileName ++ " todoItem:=" ++ todoItem
 
 remove :: [String] -> IO ()
 remove args = putStrLn $ "remove args:=" ++ show args
