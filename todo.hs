@@ -24,7 +24,18 @@ add :: [String] -> IO ()
 add [fileName, todoItem] = appendFile fileName (todoItem ++ "\n") `db` lvl $ "add fileName:=" ++ show fileName ++ " todoItem:=" ++ todoItem
 
 remove :: [String] -> IO ()
-remove args = putStrLn $ "remove args:=" ++ show args
+remove [fileName, numberString] = do
+    handle <- openFile fileName ReadMode
+    (tempName, tempHandle) <- openTempFile "." "temp"
+    contents <- hGetContents handle
+    let number = read numberString
+        todoTasks = lines contents
+        newTodoItems = delete (todoTasks !! number) todoTasks
+    hPutStr tempHandle $ unlines newTodoItems
+    hClose handle
+    hClose tempHandle
+    removeFile fileName
+    renameFile tempName fileName
 
 main = do
     (command:args) <- getArgs
